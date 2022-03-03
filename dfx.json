@@ -4,7 +4,7 @@
   "canisters": {
     "ledger": {
       "type": "custom",
-      "candid": "src/ledger/ledger.public.did",
+      "candid": "src/ledger/ledger.private.did",
       "wasm": "src/ledger/ledger.wasm"
     },
     "mysite": {

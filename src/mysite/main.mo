@@ -17,8 +17,7 @@ actor {
         let res = await ledgerActor.transfer({
             memo = transferIndex;
             from_subaccount = null;
-            // to =  AviateAID.fromPrincipal(to, null);
-            to = Ext.AccountIdentifier.fromPrincipal(to, null);
+            to =  AviateAID.fromPrincipal(to, null);
             amount = { e8s = amount - ICP_FEE };
             fee = { e8s = ICP_FEE };
             created_at_time = ?{ timestamp_nanos = Nat64.fromNat(Int.abs(Time.now())) };

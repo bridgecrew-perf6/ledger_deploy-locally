@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "dfx": "0.8.4",
+  "canisters": {
+    "ledger": {
+      "type": "custom",
+      "candid": "src/ledger/ledger.public.did",
+      "wasm": "src/ledger/ledger.wasm"
+    },
+    "mysite": {
+      "type": "motoko",
+      "main": "src/mysite/main.mo"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": "vessel sources",
+      "args": ""
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  }
+}

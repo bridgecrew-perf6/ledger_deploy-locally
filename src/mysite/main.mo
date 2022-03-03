@@ -1,4 +1,5 @@
 import Ledger "ledger";
+import LedgerActor "canister:ledger";
 import Nat64 "mo:base/Nat64";
 import Time "mo:base/Time";
 import Int "mo:base/Int";
@@ -11,10 +12,33 @@ actor {
     
     public shared(msg) func greet() : async () {
         ignore _sendICP(msg.caller,1000000);
+        ignore _sendICP2(msg.caller,200000);
     };
-    let ledgerActor : Ledger.Self = actor("ryjl3-tyaaa-aaaaa-aaaba-cai");
+
+
+    let ledgerActor : Ledger.Self = actor("rrkah-fqaaa-aaaaa-aaaaq-cai");
     private func _sendICP(to : Principal,amount : Nat64) : async (){
         let res = await ledgerActor.transfer({
+            memo = transferIndex;
+            from_subaccount = null;
+            to =  AviateAID.fromPrincipal(to, null);
+            amount = { e8s = amount - ICP_FEE };
+            fee = { e8s = ICP_FEE };
+            created_at_time = ?{ timestamp_nanos = Nat64.fromNat(Int.abs(Time.now())) };
+        });
+        Debug.print(debug_show(res));
+        switch(res){
+            case (#Ok(_)){
+                Debug.print(debug_show("OK"));
+            };
+            case (#Err(_)){
+                Debug.print(debug_show("Err"));
+            };
+        }
+    };
+
+    private func _sendICP2(to : Principal,amount : Nat64) : async (){
+        let res = await LedgerActor.transfer({
             memo = transferIndex;
             from_subaccount = null;
             to =  AviateAID.fromPrincipal(to, null);
